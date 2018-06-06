@@ -1,14 +1,14 @@
 class EmailExport(object):
     """Implementation-specific"""
     
-    def export(self):
+    def export(self, profile):
         print('Export data to mail box')
 
 
 class AtsExport(object):
     """Implementation-specific"""
 
-    def export(self):
+    def export(self, profile):
         print('Export data to ats system')
 
 
@@ -24,9 +24,10 @@ class Candidate(object):
         self.status = status
     
     def export(self):
-        self._export_method.export()
+        self._export_method.export(self.profile)
 
+exports = [EmailExport(), AtsExport()]
 
-export = EmailExport()
-candidate = Candidate('pending', {}, export)
-candidate.export()
+for export in exports:
+    candidate = Candidate('pending', {}, export)
+    candidate.export()
